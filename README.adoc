@@ -1,0 +1,99 @@
+== Coffee
+
+.todos
+- make post order return UUID
+- implement read side (read order status)
+- add "real" event store
+- add snapshots for replaying events
+ * snapshot map for aggregate -> UUID
+ * reference last event version from snapshot
+
+.done
+- make events persistent
+
+>>>>>>>>>>>>>>>>>>>>
+
+.things (cre)
+- aggregate (applied from aggregate repository (for aggregate type & command type)
+- commands (like events)
+- events (_internal_ / _external_)
+- service (external commands)
+- workflow (_external_ events -> internal commands)
+
+.things (Java EE)
+- handle external commands -> service (boundary, @Stateless)
+- handle external events to commands -> workflow / event handler
+- aggregate repository -> dispatches & applies events
+- store state, apply events, handle commands -> aggregate
+
+- make "magic" around aggregates
+
+>>>>>>>>>>>>>>>>>>>>
+
+== Java EE world
+
+=== Orders
+
+CoffeeOrder (aggregate)
+-> OrderPlaced
+-> OrderAccepted
+-> OrderCancelled
+-> OrderStarted
+-> OrderFinished
+-> OrderDelivered
+
+OrderService (commands -> events)
++ place order -> OrderPlaced
+- accept order -> OrderAccepted
+- cancel order -> OrderCancelled
+- start order -> OrderStarted
+- finish order -> OrderFinished
+- deliver order -> OrderDelivered
+
+EventHandler (events -> commands)
+- OrderBeansValidated -> accept order
+- OrderFailedBeansNotAvailable -> cancel order
+- CoffeeBrewStarted -> start order
+- CoffeeBrewFinished -> finish order
+- CoffeeDelivered -> deliver order
+
+.events
+- OrderPlaced
+- OrderAccepted
+- OrderCancelled
+
+=== Barista
+
+BaristaService (commands -> events)
+- make coffee -> CoffeeBrewStarted
+o check coffee -> _none_, CoffeeBrewFinished
+o wait for customer -> _none_, CoffeeDelivered
+
+EventHandler (events -> commands)
+- OrderAccepted -> make coffee
+
+.events
+- CoffeeBrewStarted
+- CoffeeBrewFinished
+- CoffeeDelivered
+
+=== Beans
+
+BeanStorage (aggregate)
+-> BeansFetched
+-> BeansStored
+
+BeanService
++ store beans -> BeansStored
+- validate beans -> OrderBeansValidated | OrderFailedBeansNotAvailable
+- fetch beans -> BeansFetched
+
+EventHandler
+- OrderPlaced -> validate beans
+- CoffeeBrewStarted -> fetch beans
+
+.events
+- OrderBeansValidated
+- OrderFailedBeansNotAvailable
+- BeansFetched
+- BeansStored
