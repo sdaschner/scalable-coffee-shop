@@ -9,6 +9,7 @@ public class OrderFailedBeansNotAvailable extends AbstractEvent {
     private final UUID orderId;
 
     public OrderFailedBeansNotAvailable(final UUID orderId) {
+        super();
         this.orderId = orderId;
     }
 

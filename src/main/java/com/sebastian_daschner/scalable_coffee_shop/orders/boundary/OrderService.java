@@ -15,6 +15,10 @@ public class OrderService {
     @Inject
     CoffeeOrders coffeeOrders;
 
+    public CoffeeOrder getOrder(final UUID orderId) {
+        return coffeeOrders.get(orderId);
+    }
+
     public void placeOrder(final OrderInfo orderInfo) {
         eventStore.addAndFire(new OrderPlaced(orderInfo));
     }

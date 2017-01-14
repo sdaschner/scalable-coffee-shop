@@ -9,6 +9,7 @@ public class OrderBeansValidated extends AbstractEvent {
     private final UUID orderId;
 
     public OrderBeansValidated(final UUID orderId) {
+        super();
         this.orderId = orderId;
     }
 

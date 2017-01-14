@@ -1,15 +1,15 @@
 == Coffee
 
 .todos
-- make post order return UUID
-- implement read side (read order status)
-- add "real" event store
 - add snapshots for replaying events
  * snapshot map for aggregate -> UUID
  * reference last event version from snapshot
+- add "real" event store -> kafka
 
 .done
 - make events persistent
+- make post order return UUID
+- implement read side (read order status)
 
 >>>>>>>>>>>>>>>>>>>>
 

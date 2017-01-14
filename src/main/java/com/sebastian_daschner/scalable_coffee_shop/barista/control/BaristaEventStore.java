@@ -1,57 +1,38 @@
 package com.sebastian_daschner.scalable_coffee_shop.barista.control;
 
+import com.sebastian_daschner.scalable_coffee_shop.EventStore;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.AbstractEvent;
-import org.mapdb.DB;
-import org.mapdb.IndexTreeList;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.enterprise.event.Event;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Singleton
-@Startup
+@ApplicationScoped
 public class BaristaEventStore {
 
-    private IndexTreeList<Object> eventLog;
+    private static final String TOPIC = "barista-events";
 
     @Inject
-    DB mapDB;
+    EventStore eventStore;
 
-    @Inject
-    Event<AbstractEvent> events;
+    // TODO add saved snapshots
 
     @PostConstruct
     private void init() {
-        eventLog = mapDB.indexTreeList("barista-events").createOrOpen();
-
-        if (!eventLog.isEmpty())
-            System.out.println("there are barista events:");
-        eventLog.forEach(c -> System.out.println(c.getClass().getSimpleName()));
+        eventStore.initTopic(TOPIC);
     }
 
-    @Lock
     public void addAndFire(final AbstractEvent event) {
-        eventLog.add(event);
-        mapDB.commit();
-        events.fire(event);
+        eventStore.addAndFire(event, TOPIC);
     }
 
-    @Lock(LockType.READ)
     public List<AbstractEvent> getEvents() {
-        return getEvents(0);
+        return eventStore.getEvents(TOPIC);
     }
 
-    @Lock(LockType.READ)
     public List<AbstractEvent> getEvents(final int lastVersion) {
-        return eventLog.subList(lastVersion, eventLog.size()).stream()
-                .map(e -> (AbstractEvent) e)
-                .collect(Collectors.toList());
+        return eventStore.getEvents(TOPIC, lastVersion);
     }
 
 }

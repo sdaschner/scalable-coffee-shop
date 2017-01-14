@@ -7,6 +7,7 @@ public class BeansFetched extends AbstractEvent {
     private final String beanOrigin;
 
     public BeansFetched(final String beanOrigin) {
+        super();
         this.beanOrigin = beanOrigin;
     }
 

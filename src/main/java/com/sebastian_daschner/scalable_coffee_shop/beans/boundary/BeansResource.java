@@ -1,8 +1,11 @@
 package com.sebastian_daschner.scalable_coffee_shop.beans.boundary;
 
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -11,6 +14,14 @@ public class BeansResource {
 
     @Inject
     BeanService beanService;
+
+    @GET
+    public JsonObject getBeans() {
+        final JsonObjectBuilder builder = Json.createObjectBuilder();
+        beanService.getStoredBeans()
+                .entrySet().forEach(e -> builder.add(e.getKey(), e.getValue()));
+        return builder.build();
+    }
 
     @POST
     public void storeBeans(JsonObject object) {

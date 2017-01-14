@@ -8,6 +8,7 @@ public class CoffeeBrewStarted extends AbstractEvent {
     private final OrderInfo orderInfo;
 
     public CoffeeBrewStarted(final OrderInfo orderInfo) {
+        super();
         this.orderInfo = orderInfo;
     }
 

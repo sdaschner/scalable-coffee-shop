@@ -6,7 +6,11 @@ import com.sebastian_daschner.scalable_coffee_shop.barista.entity.CoffeeDelivere
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.AbstractEvent;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.*;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.Collection;
@@ -32,6 +36,9 @@ public class CoffeeBrews {
     @Inject
     BaristaEventStore eventStore;
 
+    @Inject
+    Event<AbstractEvent> replayEvents;
+
     public Collection<UUID> getUnfinishedBrews() {
         return unmodifiableCollection(unfinishedBrews);
     }
@@ -42,15 +49,13 @@ public class CoffeeBrews {
 
     @PostConstruct
     private void init() {
-        eventStore.getEvents().forEach(this::apply);
+        eventStore.getEvents().forEach(replayEvents::fire);
     }
 
-    @Asynchronous
     public void apply(@Observes CoffeeBrewStarted event) {
         unfinishedBrews.add(event.getOrderInfo().getOrderId());
     }
 
-    @Asynchronous
     public void apply(@Observes CoffeeBrewFinished event) {
         final Iterator<UUID> iterator = unfinishedBrews.iterator();
         while (iterator.hasNext()) {
@@ -62,18 +67,8 @@ public class CoffeeBrews {
         }
     }
 
-    @Asynchronous
     public void apply(@Observes CoffeeDelivered event) {
         undeliveredOrders.removeIf(i -> i.equals(event.getOrderId()));
-    }
-
-    private void apply(final AbstractEvent event) {
-        if (event instanceof CoffeeBrewStarted)
-            apply((CoffeeBrewStarted) event);
-        else if (event instanceof CoffeeBrewFinished)
-            apply((CoffeeBrewFinished) event);
-        else if (event instanceof CoffeeDelivered)
-            apply((CoffeeDelivered) event);
     }
 
 }

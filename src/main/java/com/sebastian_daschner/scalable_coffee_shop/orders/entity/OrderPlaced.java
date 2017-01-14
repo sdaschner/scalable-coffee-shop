@@ -7,6 +7,7 @@ public class OrderPlaced extends AbstractEvent {
     private final OrderInfo orderInfo;
 
     public OrderPlaced(final OrderInfo orderInfo) {
+        super();
         this.orderInfo = orderInfo;
     }
 

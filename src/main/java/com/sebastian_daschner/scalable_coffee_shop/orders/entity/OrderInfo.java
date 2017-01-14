@@ -11,6 +11,7 @@ public class OrderInfo extends AbstractEvent {
     private final String beanOrigin;
 
     public OrderInfo(final UUID orderId, final CoffeeType type, final String beanOrigin) {
+        super();
         this.orderId = orderId;
         this.type = type;
         this.beanOrigin = beanOrigin;

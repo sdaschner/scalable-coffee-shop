@@ -8,6 +8,7 @@ public class BeansStored extends AbstractEvent {
     private final int amount;
 
     public BeansStored(final String beanOrigin, final int amount) {
+        super();
         this.beanOrigin = beanOrigin;
         this.amount = amount;
     }

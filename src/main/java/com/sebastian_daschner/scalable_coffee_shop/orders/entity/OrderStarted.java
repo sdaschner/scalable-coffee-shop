@@ -9,6 +9,7 @@ public class OrderStarted extends AbstractEvent {
     private final UUID orderId;
 
     public OrderStarted(final UUID orderId) {
+        super();
         this.orderId = orderId;
     }
 

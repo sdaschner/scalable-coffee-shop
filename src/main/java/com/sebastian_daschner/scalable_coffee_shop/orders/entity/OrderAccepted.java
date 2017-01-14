@@ -7,6 +7,7 @@ public class OrderAccepted extends AbstractEvent {
     private final OrderInfo orderInfo;
 
     public OrderAccepted(final OrderInfo orderInfo) {
+        super();
         this.orderInfo = orderInfo;
     }
 
