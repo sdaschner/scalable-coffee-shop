@@ -1,36 +1,21 @@
-== Coffee
-
 .todos
+- split up application (to domains & to read / write side)
 - add snapshots for replaying events
  * snapshot map for aggregate -> UUID
  * reference last event version from snapshot
-- add "real" event store -> kafka
+- remove final's
 
 .done
 - make events persistent
 - make post order return UUID
 - implement read side (read order status)
+- try to find declarative json mapping that honors polymorphism
+- add "real" event store -> kafka
+ * implement producer
+ * (de)serializer
+- separate events from different bounded contexts
 
 >>>>>>>>>>>>>>>>>>>>
-
-.things (cre)
-- aggregate (applied from aggregate repository (for aggregate type & command type)
-- commands (like events)
-- events (_internal_ / _external_)
-- service (external commands)
-- workflow (_external_ events -> internal commands)
-
-.things (Java EE)
-- handle external commands -> service (boundary, @Stateless)
-- handle external events to commands -> workflow / event handler
-- aggregate repository -> dispatches & applies events
-- store state, apply events, handle commands -> aggregate
-
-- make "magic" around aggregates
-
->>>>>>>>>>>>>>>>>>>>
-
-== Java EE world
 
 === Orders
 

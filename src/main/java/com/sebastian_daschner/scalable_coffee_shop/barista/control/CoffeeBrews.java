@@ -3,16 +3,13 @@ package com.sebastian_daschner.scalable_coffee_shop.barista.control;
 import com.sebastian_daschner.scalable_coffee_shop.barista.entity.CoffeeBrewFinished;
 import com.sebastian_daschner.scalable_coffee_shop.barista.entity.CoffeeBrewStarted;
 import com.sebastian_daschner.scalable_coffee_shop.barista.entity.CoffeeDelivered;
-import com.sebastian_daschner.scalable_coffee_shop.events.entity.AbstractEvent;
+import com.sebastian_daschner.scalable_coffee_shop.events.entity.HandledBy;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
@@ -33,11 +30,7 @@ public class CoffeeBrews {
     private final Set<UUID> unfinishedBrews = new ConcurrentSkipListSet<>();
     private final Set<UUID> undeliveredOrders = new ConcurrentSkipListSet<>();
 
-    @Inject
-    BaristaEventStore eventStore;
-
-    @Inject
-    Event<AbstractEvent> replayEvents;
+    // TODO add persistence
 
     public Collection<UUID> getUnfinishedBrews() {
         return unmodifiableCollection(unfinishedBrews);
@@ -47,16 +40,11 @@ public class CoffeeBrews {
         return unmodifiableCollection(undeliveredOrders);
     }
 
-    @PostConstruct
-    private void init() {
-        eventStore.getEvents().forEach(replayEvents::fire);
-    }
-
-    public void apply(@Observes CoffeeBrewStarted event) {
+    public void apply(@Observes @HandledBy(HandledBy.Group.BARISTA_CONSUMER) CoffeeBrewStarted event) {
         unfinishedBrews.add(event.getOrderInfo().getOrderId());
     }
 
-    public void apply(@Observes CoffeeBrewFinished event) {
+    public void apply(@Observes @HandledBy(HandledBy.Group.BARISTA_CONSUMER) CoffeeBrewFinished event) {
         final Iterator<UUID> iterator = unfinishedBrews.iterator();
         while (iterator.hasNext()) {
             final UUID orderId = iterator.next();
@@ -67,7 +55,7 @@ public class CoffeeBrews {
         }
     }
 
-    public void apply(@Observes CoffeeDelivered event) {
+    public void apply(@Observes @HandledBy(HandledBy.Group.BARISTA_CONSUMER) CoffeeDelivered event) {
         undeliveredOrders.removeIf(i -> i.equals(event.getOrderId()));
     }
 

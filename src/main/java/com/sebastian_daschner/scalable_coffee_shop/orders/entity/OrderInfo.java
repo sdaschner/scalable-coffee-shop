@@ -1,20 +1,24 @@
 package com.sebastian_daschner.scalable_coffee_shop.orders.entity;
 
-import com.sebastian_daschner.scalable_coffee_shop.events.entity.AbstractEvent;
-
+import javax.json.JsonObject;
 import java.util.UUID;
 
-public class OrderInfo extends AbstractEvent {
+public class OrderInfo {
 
     private final UUID orderId;
     private final CoffeeType type;
     private final String beanOrigin;
 
     public OrderInfo(final UUID orderId, final CoffeeType type, final String beanOrigin) {
-        super();
         this.orderId = orderId;
         this.type = type;
         this.beanOrigin = beanOrigin;
+    }
+
+    public OrderInfo(JsonObject jsonObject) {
+        this(UUID.fromString(jsonObject.getString("orderId")),
+                CoffeeType.fromString(jsonObject.getString("type")),
+                jsonObject.getString("beanOrigin"));
     }
 
     public UUID getOrderId() {

@@ -1,8 +1,8 @@
 package com.sebastian_daschner.scalable_coffee_shop.beans.boundary;
 
+import com.sebastian_daschner.scalable_coffee_shop.events.control.EventProducer;
 import com.sebastian_daschner.scalable_coffee_shop.barista.entity.BeansFetched;
 import com.sebastian_daschner.scalable_coffee_shop.beans.control.BeanStorage;
-import com.sebastian_daschner.scalable_coffee_shop.beans.control.BeansEventStore;
 import com.sebastian_daschner.scalable_coffee_shop.beans.entity.BeansStored;
 import com.sebastian_daschner.scalable_coffee_shop.beans.entity.OrderBeansValidated;
 import com.sebastian_daschner.scalable_coffee_shop.beans.entity.OrderFailedBeansNotAvailable;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class BeanService {
 
     @Inject
-    BeansEventStore eventStore;
+    EventProducer eventProducer;
 
     @Inject
     BeanStorage beanStorage;
@@ -24,17 +24,18 @@ public class BeanService {
     }
 
     public void storeBeans(final String beanOrigin, final int amount) {
-        eventStore.addAndFire(new BeansStored(beanOrigin, amount));
+        eventProducer.publish(new BeansStored(beanOrigin, amount));
     }
 
     void validateBeans(final String beanOrigin, final UUID orderId) {
         if (beanStorage.getRemainingAmount(beanOrigin) > 0)
-            eventStore.addAndFire(new OrderBeansValidated(orderId));
+            eventProducer.publish(new OrderBeansValidated(orderId));
         else
-            eventStore.addAndFire(new OrderFailedBeansNotAvailable(orderId));
+            eventProducer.publish(new OrderFailedBeansNotAvailable(orderId));
     }
 
     void fetchBeans(final String beanOrigin) {
-        eventStore.addAndFire(new BeansFetched(beanOrigin));
+        eventProducer.publish(new BeansFetched(beanOrigin));
     }
+
 }

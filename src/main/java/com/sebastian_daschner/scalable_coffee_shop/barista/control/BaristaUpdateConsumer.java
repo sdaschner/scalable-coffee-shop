@@ -1,9 +1,7 @@
-package com.sebastian_daschner.scalable_coffee_shop.beans.boundary;
+package com.sebastian_daschner.scalable_coffee_shop.barista.control;
 
-import com.sebastian_daschner.scalable_coffee_shop.barista.entity.CoffeeBrewStarted;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.AbstractEvent;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.HandledBy;
-import com.sebastian_daschner.scalable_coffee_shop.orders.entity.OrderPlaced;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -14,48 +12,36 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import static com.sebastian_daschner.scalable_coffee_shop.events.entity.HandledBy.Group.BEANS_HANDLER;
-import static java.util.Arrays.asList;
+import static com.sebastian_daschner.scalable_coffee_shop.events.entity.HandledBy.Group.BARISTA_CONSUMER;
 
-@Singleton
 @Startup
-public class BeanEventHandler {
+@Singleton
+public class BaristaUpdateConsumer {
 
     @Resource
     ManagedExecutorService mes;
 
     @Inject
-    @HandledBy(BEANS_HANDLER)
-    Event<AbstractEvent> events;
-
-    @Inject
     Properties kafkaProperties;
 
     @Inject
-    BeanService beanService;
+    @HandledBy(BARISTA_CONSUMER)
+    Event<AbstractEvent> events;
 
     @Inject
     Logger logger;
 
-    public void handle(@Observes @HandledBy(BEANS_HANDLER) OrderPlaced event) {
-        beanService.validateBeans(event.getOrderInfo().getBeanOrigin(), event.getOrderInfo().getOrderId());
-    }
-
-    public void handle(@Observes @HandledBy(BEANS_HANDLER) CoffeeBrewStarted event) {
-        beanService.fetchBeans(event.getOrderInfo().getBeanOrigin());
-    }
-
     @PostConstruct
-    private void initConsumer() {
-        kafkaProperties.put("group.id", "beans-handler");
+    private void init() {
+        kafkaProperties.put("group.id", "barista-consumer-" + kafkaProperties.getProperty("group-offset"));
 
         KafkaConsumer<String, AbstractEvent> consumer = new KafkaConsumer<>(kafkaProperties);
-        consumer.subscribe(asList("order", "barista"));
+        consumer.subscribe(Collections.singleton("barista"));
 
         mes.execute(() -> consumeEvent(consumer));
     }

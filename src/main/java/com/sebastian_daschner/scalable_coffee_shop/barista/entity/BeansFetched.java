@@ -1,14 +1,24 @@
 package com.sebastian_daschner.scalable_coffee_shop.barista.entity;
 
-import com.sebastian_daschner.scalable_coffee_shop.events.entity.AbstractEvent;
+import javax.json.JsonObject;
+import java.time.Instant;
 
-public class BeansFetched extends AbstractEvent {
+public class BeansFetched extends BaristaEvent {
 
     private final String beanOrigin;
 
     public BeansFetched(final String beanOrigin) {
-        super();
         this.beanOrigin = beanOrigin;
+    }
+
+    public BeansFetched(final String beanOrigin, final Instant instant) {
+        super(instant);
+        this.beanOrigin = beanOrigin;
+    }
+
+    public BeansFetched(final JsonObject jsonObject) {
+        this(jsonObject.getString("beanOrigin"), Instant.parse(jsonObject.getString("instant")));
+
     }
 
     public String getBeanOrigin() {
