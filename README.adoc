@@ -3,6 +3,7 @@
 - add snapshots for replaying events
  * snapshot map for aggregate -> UUID
  * reference last event version from snapshot
+- test Kafka transmission on long running event handling -> sync?
 - remove final's
 
 .done
@@ -82,3 +83,31 @@ EventHandler
 - OrderFailedBeansNotAvailable
 - BeansFetched
 - BeansStored
+
+=== Events (topics)
+
+==== order
+- OrderPlaced
+- OrderAccepted
+- OrderCancelled
+- OrderStarted
+- OrderFinished
+- OrderDelivered
+- CoffeeBrewStarted
+- CoffeeDelivered
+- OrderBeansValidated
+- OrderFailedBeansNotAvailable
+
+==== beans
+- OrderPlaced
+- CoffeeBrewStarted
+- BeansFetched
+- OrderBeansValidated
+- OrderFailedBeansNotAvailable
+- BeansStored
+
+==== barista
+- OrderAccepted
+- CoffeeBrewStarted
+- CoffeeBrewFinished
+- CoffeeDelivered
