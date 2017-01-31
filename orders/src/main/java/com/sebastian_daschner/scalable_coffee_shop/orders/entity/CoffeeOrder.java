@@ -2,9 +2,6 @@ package com.sebastian_daschner.scalable_coffee_shop.orders.entity;
 
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderInfo;
 
-/**
- * Aggregate. Represents a coffee order with the state.
- */
 public class CoffeeOrder {
 
     private CoffeeOrderState state;

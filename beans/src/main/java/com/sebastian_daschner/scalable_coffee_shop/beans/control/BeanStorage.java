@@ -12,17 +12,12 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Aggregate. Stores the available bean origins.
- */
 @Singleton
 @Startup
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class BeanStorage {
 
     private Map<String, Integer> beanOrigins = new ConcurrentHashMap<>();
-
-    // TODO add persistence
 
     public Map<String, Integer> getStoredBeans() {
         return Collections.unmodifiableMap(beanOrigins);

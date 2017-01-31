@@ -17,10 +17,6 @@ import java.util.concurrent.ConcurrentSkipListSet;
 
 import static java.util.Collections.unmodifiableCollection;
 
-/**
- * Contains the coffee brew aggregated information.
- * Handles, dispatches & applies internal events.
- */
 @Singleton
 @Startup
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
@@ -28,8 +24,6 @@ public class CoffeeBrews {
 
     private final Set<UUID> unfinishedBrews = new ConcurrentSkipListSet<>();
     private final Set<UUID> undeliveredOrders = new ConcurrentSkipListSet<>();
-
-    // TODO add persistence
 
     public Collection<UUID> getUnfinishedBrews() {
         return unmodifiableCollection(unfinishedBrews);

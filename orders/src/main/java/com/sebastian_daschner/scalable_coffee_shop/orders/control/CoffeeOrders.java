@@ -13,18 +13,12 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-/**
- * Contains the {@link CoffeeOrder} aggregates.
- * Handles, dispatches & applies internal events.
- */
 @Singleton
 @Startup
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class CoffeeOrders {
 
     private Map<UUID, CoffeeOrder> coffeeOrders = new ConcurrentHashMap<>();
-
-    // TODO add persistence
 
     public CoffeeOrder get(final UUID orderId) {
         return coffeeOrders.get(orderId);
