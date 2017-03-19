@@ -24,6 +24,7 @@
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>0.10.1.1</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- TODO change to newer JSONB API -->
@@ -31,13 +32,7 @@
                 <groupId>org.apache.johnzon</groupId>
                 <artifactId>jsonb-api</artifactId>
                 <version>1.0.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.johnzon</groupId>
-                <artifactId>johnzon-jsonb</artifactId>
-                <version>1.0.0</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
             </dependency>
 
             <dependency>
@@ -56,6 +51,12 @@
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-all</artifactId>
                 <version>1.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.johnzon</groupId>
+                <artifactId>johnzon-jsonb</artifactId>
+                <version>1.0.0</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
