@@ -10,3 +10,4 @@ release.properties
 
 Dockerfile
 *.sh
+docker/
