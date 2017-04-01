@@ -1,6 +1,6 @@
 package com.sebastian_daschner.scalable_coffee_shop.barista.boundary;
 
-import com.sebastian_daschner.scalable_coffee_shop.barista.control.EventConsumer;
+import com.sebastian_daschner.scalable_coffee_shop.events.control.EventConsumer;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderAccepted;
 

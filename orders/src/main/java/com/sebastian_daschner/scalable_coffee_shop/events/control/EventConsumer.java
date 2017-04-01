@@ -1,4 +1,4 @@
-package com.sebastian_daschner.scalable_coffee_shop.orders.control;
+package com.sebastian_daschner.scalable_coffee_shop.events.control;
 
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

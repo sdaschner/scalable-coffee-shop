@@ -1,7 +1,7 @@
 package com.sebastian_daschner.scalable_coffee_shop.orders.boundary;
 
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.*;
-import com.sebastian_daschner.scalable_coffee_shop.orders.control.EventConsumer;
+import com.sebastian_daschner.scalable_coffee_shop.events.control.EventConsumer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

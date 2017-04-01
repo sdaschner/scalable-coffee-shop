@@ -1,5 +1,6 @@
 package com.sebastian_daschner.scalable_coffee_shop.barista.control;
 
+import com.sebastian_daschner.scalable_coffee_shop.events.control.EventConsumer;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
 
 import javax.annotation.PostConstruct;
