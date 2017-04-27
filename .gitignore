@@ -11,3 +11,4 @@ release.properties
 Dockerfile
 *.sh
 docker/
+kafka/
