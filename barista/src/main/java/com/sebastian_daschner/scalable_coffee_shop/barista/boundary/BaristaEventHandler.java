@@ -41,13 +41,14 @@ public class BaristaEventHandler {
     }
 
     @PostConstruct
-    private void init() {
+    private void initConsumer() {
         kafkaProperties.put("group.id", "barista-handler");
+        String orders = kafkaProperties.getProperty("orders.topic");
 
         eventConsumer = new EventConsumer(kafkaProperties, ev -> {
             logger.info("firing = " + ev);
             events.fire(ev);
-        }, "order");
+        }, orders);
 
         mes.execute(eventConsumer);
     }

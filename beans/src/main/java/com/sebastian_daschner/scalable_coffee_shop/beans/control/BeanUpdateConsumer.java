@@ -36,11 +36,12 @@ public class BeanUpdateConsumer {
     @PostConstruct
     private void init() {
         kafkaProperties.put("group.id", "beans-consumer-" + UUID.randomUUID());
+        String beans = kafkaProperties.getProperty("beans.topic");
 
         eventConsumer = new EventConsumer(kafkaProperties, ev -> {
             logger.info("firing = " + ev);
             events.fire(ev);
-        }, "beans");
+        }, beans);
 
         mes.execute(eventConsumer);
     }

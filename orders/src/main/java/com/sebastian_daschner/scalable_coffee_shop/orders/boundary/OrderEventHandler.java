@@ -1,7 +1,7 @@
 package com.sebastian_daschner.scalable_coffee_shop.orders.boundary;
 
-import com.sebastian_daschner.scalable_coffee_shop.events.entity.*;
 import com.sebastian_daschner.scalable_coffee_shop.events.control.EventConsumer;
+import com.sebastian_daschner.scalable_coffee_shop.events.entity.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -59,11 +59,13 @@ public class OrderEventHandler {
     @PostConstruct
     private void initConsumer() {
         kafkaProperties.put("group.id", "order-handler");
+        String barista = kafkaProperties.getProperty("barista.topic");
+        String beans = kafkaProperties.getProperty("beans.topic");
 
         eventConsumer = new EventConsumer(kafkaProperties, ev -> {
             logger.info("firing = " + ev);
             events.fire(ev);
-        }, "barista", "beans");
+        }, barista, beans);
 
         mes.execute(eventConsumer);
     }

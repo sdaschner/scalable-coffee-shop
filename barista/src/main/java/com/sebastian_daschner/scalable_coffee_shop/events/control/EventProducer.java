@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class EventProducer {
 
     private Producer<String, CoffeeEvent> producer;
+    private String topic;
 
     @Inject
     Properties kafkaProperties;
@@ -26,10 +27,11 @@ public class EventProducer {
     @PostConstruct
     private void init() {
         producer = new KafkaProducer<>(kafkaProperties);
+        topic = kafkaProperties.getProperty("barista.topic");
     }
 
     public void publish(CoffeeEvent event) {
-        final ProducerRecord<String, CoffeeEvent> record = new ProducerRecord<>("barista", event);
+        final ProducerRecord<String, CoffeeEvent> record = new ProducerRecord<>(topic, event);
         logger.info("publishing = " + record);
         producer.send(record);
         producer.flush();
