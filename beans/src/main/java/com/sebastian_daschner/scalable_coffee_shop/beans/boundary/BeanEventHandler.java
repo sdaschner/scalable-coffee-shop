@@ -1,6 +1,7 @@
 package com.sebastian_daschner.scalable_coffee_shop.beans.boundary;
 
 import com.sebastian_daschner.scalable_coffee_shop.events.control.EventConsumer;
+import com.sebastian_daschner.scalable_coffee_shop.events.control.OffsetTracker;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeBrewStarted;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderPlaced;
@@ -30,6 +31,9 @@ public class BeanEventHandler {
     Properties kafkaProperties;
 
     @Inject
+    OffsetTracker offsetTracker;
+
+    @Inject
     Event<CoffeeEvent> events;
 
     @Inject
@@ -55,7 +59,7 @@ public class BeanEventHandler {
         eventConsumer = new EventConsumer(kafkaProperties, ev -> {
             logger.info("firing = " + ev);
             events.fire(ev);
-        }, orders, barista);
+        }, offsetTracker, orders, barista);
 
         mes.execute(eventConsumer);
     }
