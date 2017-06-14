@@ -15,15 +15,13 @@ import static java.util.Arrays.asList;
 public class EventConsumer implements Runnable {
 
     private final KafkaConsumer<String, CoffeeEvent> consumer;
-    private final OffsetTracker offsetTracker;
     private final Consumer<CoffeeEvent> eventConsumer;
     private final AtomicBoolean closed = new AtomicBoolean();
 
-    public EventConsumer(Properties kafkaProperties, Consumer<CoffeeEvent> eventConsumer, OffsetTracker offsetTracker, String... topics) {
+    public EventConsumer(Properties kafkaProperties, Consumer<CoffeeEvent> eventConsumer, String... topics) {
         this.eventConsumer = eventConsumer;
-        this.offsetTracker = offsetTracker;
         consumer = new KafkaConsumer<>(kafkaProperties);
-        consumer.subscribe(asList(topics), new OffsetTrackingRebalanceListener(consumer, offsetTracker));
+        consumer.subscribe(asList(topics));
     }
 
     @Override
@@ -43,8 +41,8 @@ public class EventConsumer implements Runnable {
         ConsumerRecords<String, CoffeeEvent> records = consumer.poll(Long.MAX_VALUE);
         for (ConsumerRecord<String, CoffeeEvent> record : records) {
             eventConsumer.accept(record.value());
-            offsetTracker.trackOffset(record.topic(), record.partition(), record.offset() + 1);
         }
+        consumer.commitSync();
     }
 
     public void stop() {
