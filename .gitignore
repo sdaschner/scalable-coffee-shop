@@ -12,3 +12,6 @@ Dockerfile
 *.sh
 docker/
 kafka/
+
+.gradle/
+build/
