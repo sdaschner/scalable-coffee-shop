@@ -2,13 +2,14 @@
 
 How to use event sourcing in several services with an event-driven architecture, Apache Kafka and Java EE.
 
+
 == Run
 
 . Build the base image `localhost:5000/wildfly-kafka:1` with `wildfly/build.sh`.
 This downloads the needed jar files and builds the Docker base image.
 The scripts requires `docker` and `wget` to be available.
 
-. Start Apache Kafka brokers, e.g. using Docker compose: https://github.com/wurstmeister/kafka-docker[kafka-docker^].
+. Start Apache Kafka brokers, e.g. using Docker compose: https://github.com/wurstmeister/kafka-docker[wurstmeister/kafka-docker^].
 Configure the `KAFKA_ADVERTISED_HOST_NAME` to your corresponding IP address.
 
 . Configure each of the `kafka.properties` files with `bootstrap.servers=<your-IP>:9092`.
@@ -16,3 +17,24 @@ Configure the `KAFKA_ADVERTISED_HOST_NAME` to your corresponding IP address.
 . Build and run the individual instances.
 On each of the `orders/`, `beans/` and `barista/` directories, execute `build-run-local.sh`.
 This builds the Gradle project, builds the Docker image and starts a new instance of the given service.
+
+
+== Usage
+
+. In order to create coffee orders you have to add beans to the beans storage first:
+----
+curl http://localhost:8002/beans/resources/beans -i -XPOST \
+  -H 'content-type: application/json' \
+  -d '{"beanOrigin": "Colombia", "amount": 10}'`
+----
+
+. Check the creation of the beans: `curl http://localhost:8002/beans/resources/beans`
+
+. Create a new coffee order:
+----
+curl http://localhost:8001/orders/resources/orders/ -i -XPOST \
+  -H 'Content-type: application/json' \
+  -d '{"beanOrigin": "Colombia", "coffeeType": "Espresso"}'
+----
+
+. Check the creation of the coffee order using the provided `Location` header: `curl <from-Location-header>`
