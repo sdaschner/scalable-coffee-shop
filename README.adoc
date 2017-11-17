@@ -57,7 +57,7 @@ Content-Length: 0
 Date: Fri, 17 Nov 2017 20:51:16 GMT
 ----
 
-. Check the creation of the coffee order using *your provided* `Location` header, for example:
+. Check the creation of the coffee order using *your* `Location` header, for example:
 ----
 $> curl http://localhost:8001/orders/resources/orders/c099c158-b748-4115-bed3-7b5dfff70771
 
