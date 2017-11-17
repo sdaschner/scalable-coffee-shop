@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="javax.json.bind">  
+	<resources>  
+		<resource-root path="johnzon-core-1.0.0.jar"/>
+		<resource-root path="johnzon-jsonb-1.0.0.jar"/>
+		<resource-root path="johnzon-mapper-1.0.0.jar"/>
+		<resource-root path="jsonb-api-1.0.0.jar"/>
+	</resources>  
+    <dependencies>
+        <module name="javaee.api"/>
+    </dependencies>
+</module>

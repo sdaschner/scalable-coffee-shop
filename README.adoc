@@ -1,3 +1,18 @@
 = Scalable, event-driven coffee shop
 
 How to use event sourcing in several services with an event-driven architecture, Apache Kafka and Java EE.
+
+== Run
+
+. Build the base image `localhost:5000/wildfly-kafka:1` with `wildfly/build.sh`.
+This downloads the needed jar files and builds the Docker base image.
+The scripts requires `docker` and `wget` to be available.
+
+. Start Apache Kafka brokers, e.g. using Docker compose: https://github.com/wurstmeister/kafka-docker[kafka-docker^].
+Configure the `KAFKA_ADVERTISED_HOST_NAME` to your corresponding IP address.
+
+. Configure each of the `kafka.properties` files with `bootstrap.servers=<your-IP>:9092`.
+
+. Build and run the individual instances.
+On each of the `orders/`, `beans/` and `barista/` directories, execute `build-run-local.sh`.
+This builds the Gradle project, builds the Docker image and starts a new instance of the given service.

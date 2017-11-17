@@ -8,10 +8,7 @@ release.properties
 *.iml
 .idea/
 
-Dockerfile
-*.sh
-docker/
-kafka/
-
 .gradle/
 build/
+
+*.jar
