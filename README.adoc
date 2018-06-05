@@ -5,10 +5,6 @@ How to use event sourcing in several services with an event-driven architecture,
 
 == Run
 
-. Build the base image `localhost:5000/wildfly-kafka:1` with `wildfly/build.sh`.
-This downloads the needed jar files and builds the Docker base image.
-The scripts requires `docker` and `wget` to be available.
-
 . Start Apache Kafka brokers, e.g. using Docker compose: https://github.com/wurstmeister/kafka-docker[wurstmeister/kafka-docker^].
 Configure the `KAFKA_ADVERTISED_HOST_NAME` to your corresponding IP address.
 
@@ -63,4 +59,3 @@ $> curl http://localhost:8001/orders/resources/orders/c099c158-b748-4115-bed3-7b
 
 {"status":"started","type":"espresso","beanOrigin":"Colombia"}
 ----
-
