@@ -1,7 +1,7 @@
 package com.sebastian_daschner.scalable_coffee_shop.beans.control;
 
-import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
 import com.sebastian_daschner.scalable_coffee_shop.events.control.EventSerializer;
+import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

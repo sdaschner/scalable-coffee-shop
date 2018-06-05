@@ -20,14 +20,6 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.johnzon</groupId>
-            <artifactId>jsonb-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.johnzon</groupId>
-            <artifactId>johnzon-jsonb</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -40,6 +32,14 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
         </dependency>
     </dependencies>
 

@@ -17,21 +17,13 @@
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
-                <version>7.0</version>
+                <version>8.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
-                <version>1.0.0</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <!-- TODO change to newer JSONB API -->
-            <dependency>
-                <groupId>org.apache.johnzon</groupId>
-                <artifactId>jsonb-api</artifactId>
-                <version>1.0.0</version>
+                <version>1.1.0</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -54,9 +46,15 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.apache.johnzon</groupId>
-                <artifactId>johnzon-jsonb</artifactId>
-                <version>1.0.0</version>
+                <groupId>org.eclipse</groupId>
+                <artifactId>yasson</artifactId>
+                <version>1.0.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.json</artifactId>
+                <version>1.1</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

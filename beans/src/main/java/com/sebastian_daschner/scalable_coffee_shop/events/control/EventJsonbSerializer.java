@@ -10,10 +10,11 @@ public class EventJsonbSerializer implements JsonbSerializer<CoffeeEvent> {
 
     @Override
     public void serialize(final CoffeeEvent event, final JsonGenerator generator, final SerializationContext ctx) {
+        generator.writeStartObject();
         generator.write("class", event.getClass().getCanonicalName());
-        generator.writeStartObject("data");
         ctx.serialize("data", event, generator);
         generator.writeEnd();
+        generator.close();
     }
 
 }

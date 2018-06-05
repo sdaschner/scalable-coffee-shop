@@ -17,12 +17,12 @@ subprojects {
     dependencies {
         providedCompile "javax:javaee-api:$javaeeApiVersion"
         providedCompile "org.apache.kafka:kafka-clients:$kafkaVersion"
-        providedCompile "org.apache.johnzon:jsonb-api:$johnzonVersion"
 
-        testCompile "org.apache.johnzon:johnzon-jsonb:$johnzonVersion"
         testCompile "junit:junit:$junitVersion"
         testCompile "org.mockito:mockito-all:$mockitoVersion"
         testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+        testCompile "org.eclipse:yasson:$yassonVersion"
+        testCompile "org.glassfish:javax.json:$glassfishJsonVersion"
     }
 
     war {

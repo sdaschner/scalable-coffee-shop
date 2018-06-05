@@ -6,13 +6,13 @@ import java.util.UUID;
 public class UUIDAdapter implements JsonbAdapter<UUID, String> {
 
     @Override
-    public UUID adaptToJson(final String string) throws Exception {
-        return UUID.fromString(string);
+    public String adaptToJson(UUID uuid) {
+        return uuid.toString();
     }
 
     @Override
-    public String adaptFromJson(final UUID uuid) throws Exception {
-        return uuid.toString();
+    public UUID adaptFromJson(String string) {
+        return UUID.fromString(string);
     }
 
 }
