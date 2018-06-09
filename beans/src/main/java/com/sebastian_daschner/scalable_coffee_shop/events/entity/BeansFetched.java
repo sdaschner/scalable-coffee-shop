@@ -18,7 +18,6 @@ public class BeansFetched extends CoffeeEvent {
 
     public BeansFetched(final JsonObject jsonObject) {
         this(jsonObject.getString("beanOrigin"), Instant.parse(jsonObject.getString("instant")));
-
     }
 
     public String getBeanOrigin() {

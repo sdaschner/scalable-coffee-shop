@@ -1,7 +1,6 @@
 package com.sebastian_daschner.scalable_coffee_shop.beans.boundary;
 
 import com.sebastian_daschner.scalable_coffee_shop.events.control.EventConsumer;
-import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeBrewStarted;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
 import com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderPlaced;
 
@@ -39,11 +38,7 @@ public class BeanEventHandler {
     Logger logger;
 
     public void handle(@Observes OrderPlaced event) {
-        beanService.validateBeans(event.getOrderInfo().getBeanOrigin(), event.getOrderInfo().getOrderId());
-    }
-
-    public void handle(@Observes CoffeeBrewStarted event) {
-        beanService.fetchBeans(event.getOrderInfo().getBeanOrigin());
+        beanService.reserveBeans(event.getOrderInfo().getBeanOrigin(), event.getOrderInfo().getOrderId());
     }
 
     @PostConstruct

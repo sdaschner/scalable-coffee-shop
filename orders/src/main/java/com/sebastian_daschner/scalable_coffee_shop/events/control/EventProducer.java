@@ -35,17 +35,23 @@ public class EventProducer {
         producer.initTransactions();
     }
 
-    public void publish(CoffeeEvent event) {
-        final ProducerRecord<String, CoffeeEvent> record = new ProducerRecord<>(topic, event);
+    public void publish(CoffeeEvent... events) {
         try {
             producer.beginTransaction();
-            logger.info("publishing = " + record);
-            producer.send(record);
+            send(events);
             producer.commitTransaction();
         } catch (ProducerFencedException e) {
             producer.close();
         } catch (KafkaException e) {
             producer.abortTransaction();
+        }
+    }
+
+    private void send(CoffeeEvent... events) {
+        for (final CoffeeEvent event : events) {
+            final ProducerRecord<String, CoffeeEvent> record = new ProducerRecord<>(topic, event);
+            logger.info("publishing = " + record);
+            producer.send(record);
         }
     }
 

@@ -36,7 +36,7 @@ public class OrderEventHandler {
     @Inject
     Logger logger;
 
-    public void handle(@Observes OrderBeansValidated event) {
+    public void handle(@Observes OrderBeansReserved event) {
         orderService.acceptOrder(event.getOrderId());
     }
 

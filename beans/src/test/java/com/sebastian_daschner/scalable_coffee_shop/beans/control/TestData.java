@@ -23,8 +23,8 @@ public final class TestData {
                 new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderAccepted\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderInfo\":{\"beanOrigin\":\"Origin\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\",\"type\":\"ESPRESSO\"}}}",
                         new OrderAccepted(new OrderInfo(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), CoffeeType.ESPRESSO, "Origin"), Instant.parse("2017-01-18T08:11:21.589Z"))},
 
-                new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderBeansValidated\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\"}}",
-                        new OrderBeansValidated(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), Instant.parse("2017-01-18T08:11:21.589Z"))},
+                new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderBeansReserved\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\"}}",
+                        new OrderBeansReserved(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), Instant.parse("2017-01-18T08:11:21.589Z"))},
 
                 new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderCancelled\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\",\"reason\":\"reason\"}}",
                         new OrderCancelled(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), "reason", Instant.parse("2017-01-18T08:11:21.589Z"))},
@@ -56,8 +56,8 @@ public final class TestData {
                 new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeBrewStarted\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderInfo\":{\"beanOrigin\":\"Origin\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\",\"type\":\"ESPRESSO\"}}}",
                         new CoffeeBrewStarted(new OrderInfo(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), CoffeeType.ESPRESSO, "Origin"), Instant.parse("2017-01-18T08:11:21.589Z"))},
 
-                new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderBeansValidated\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\"}}",
-                        new OrderBeansValidated(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), Instant.parse("2017-01-18T08:11:21.589Z"))},
+                new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderBeansReserved\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\"}}",
+                        new OrderBeansReserved(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), Instant.parse("2017-01-18T08:11:21.589Z"))},
 
                 new Object[]{"{\"class\":\"com.sebastian_daschner.scalable_coffee_shop.events.entity.OrderFailedBeansNotAvailable\",\"data\":{\"instant\":\"2017-01-18T08:11:21.589Z\",\"orderId\":\"e4d284f0-2545-4368-ae80-8278c33edf16\"}}",
                         new OrderFailedBeansNotAvailable(UUID.fromString("e4d284f0-2545-4368-ae80-8278c33edf16"), Instant.parse("2017-01-18T08:11:21.589Z"))},

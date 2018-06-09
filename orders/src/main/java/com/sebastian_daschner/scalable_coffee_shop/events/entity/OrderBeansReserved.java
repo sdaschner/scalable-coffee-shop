@@ -4,20 +4,20 @@ import javax.json.JsonObject;
 import java.time.Instant;
 import java.util.UUID;
 
-public class OrderBeansValidated extends CoffeeEvent {
+public class OrderBeansReserved extends CoffeeEvent {
 
     private final UUID orderId;
 
-    public OrderBeansValidated(final UUID orderId) {
+    public OrderBeansReserved(final UUID orderId) {
         this.orderId = orderId;
     }
 
-    public OrderBeansValidated(final UUID orderId, final Instant instant) {
+    public OrderBeansReserved(final UUID orderId, final Instant instant) {
         super(instant);
         this.orderId = orderId;
     }
 
-    public OrderBeansValidated(JsonObject jsonObject) {
+    public OrderBeansReserved(JsonObject jsonObject) {
         this(UUID.fromString(jsonObject.getString("orderId")), Instant.parse(jsonObject.getString("instant")));
     }
 
