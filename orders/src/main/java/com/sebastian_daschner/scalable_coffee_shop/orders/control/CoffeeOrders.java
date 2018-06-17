@@ -8,7 +8,10 @@ import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.event.Observes;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -18,14 +21,14 @@ import java.util.function.Consumer;
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class CoffeeOrders {
 
-    private Map<UUID, CoffeeOrder> coffeeOrders = new ConcurrentHashMap<>();
+    private Map<UUID, Optional<CoffeeOrder>> coffeeOrders = new ConcurrentHashMap<>();
 
     public CoffeeOrder get(final UUID orderId) {
-        return coffeeOrders.get(orderId);
+        return coffeeOrders.get(orderId).orElse(null);
     }
 
     public void apply(@Observes OrderPlaced event) {
-        coffeeOrders.putIfAbsent(event.getOrderInfo().getOrderId(), new CoffeeOrder());
+        coffeeOrders.putIfAbsent(event.getOrderInfo().getOrderId(), Optional.of(new CoffeeOrder()));
         applyFor(event.getOrderInfo().getOrderId(), o -> o.place(event.getOrderInfo()));
     }
 
@@ -50,9 +53,7 @@ public class CoffeeOrders {
     }
 
     private void applyFor(final UUID orderId, final Consumer<CoffeeOrder> consumer) {
-        final CoffeeOrder coffeeOrder = coffeeOrders.get(orderId);
-        if (coffeeOrder != null)
-            consumer.accept(coffeeOrder);
+        coffeeOrders.get(orderId).ifPresent(consumer);
     }
 
 }
