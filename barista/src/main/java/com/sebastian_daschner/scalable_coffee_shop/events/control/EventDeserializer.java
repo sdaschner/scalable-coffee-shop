@@ -20,6 +20,7 @@ public class EventDeserializer implements Deserializer<CoffeeEvent> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public CoffeeEvent deserialize(final String topic, final byte[] data) {
         try (ByteArrayInputStream input = new ByteArrayInputStream(data)) {
             final JsonObject jsonObject = Json.createReader(input).readObject();

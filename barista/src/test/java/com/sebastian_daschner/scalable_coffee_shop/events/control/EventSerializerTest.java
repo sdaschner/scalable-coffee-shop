@@ -1,15 +1,15 @@
 package com.sebastian_daschner.scalable_coffee_shop.events.control;
 
-import com.sebastian_daschner.scalable_coffee_shop.events.control.EventSerializer;
-import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import static org.junit.Assert.assertEquals;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
+import com.sebastian_daschner.scalable_coffee_shop.events.entity.CoffeeEvent;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class EventSerializerTest {
