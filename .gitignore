@@ -12,3 +12,11 @@ release.properties
 build/
 
 *.jar
+
+.vscode
+
+bin/
+
+.settings
+.project
+.classpath

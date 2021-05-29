@@ -1,4 +1,4 @@
 rootProject.name = 'scalable-coffee-shop'
-include ':barista'
-include ':orders'
-include ':beans'
+include(':barista')
+include(':beans')
+include(':orders')
